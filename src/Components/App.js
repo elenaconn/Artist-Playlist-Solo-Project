@@ -114,7 +114,7 @@ function SongListForm({setLucy, setIT, inputText}) {
     const textState = (e) => {
         console.log(e)
       setIT(e.target.value);
-    }
+    };
 
     return (
       <div>
