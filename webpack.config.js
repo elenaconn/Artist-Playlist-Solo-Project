@@ -1,11 +1,12 @@
 const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { css } = require('styled-components');
 
 module.exports = {
   mode: 'development',
-  entry: './src/app.jsx',
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '/dist'),
     filename: 'bundle.js',
   },
   module: {
@@ -13,12 +14,22 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader'
+        },
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      }
     ],
   },
   devServer: {
     contentBase: './dist',
   },
-  devtool: 'eval-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+        template: './src/index.html'
+    })
+  ]
 };
